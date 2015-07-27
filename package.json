@@ -1,0 +1,15 @@
+{
+  "name": "node-todo",
+  "version": "0.0.1",
+  "description": "A todo-list manager straight from the CLI",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "keywords": [
+    "todo",
+    "todo-list"
+  ],
+  "author": "Brandon Dail <Kierkegaurd@gmail.com>",
+  "license": "MIT"
+}
