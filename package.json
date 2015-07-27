@@ -1,15 +1,26 @@
 {
-  "name": "node-todo",
-  "version": "0.0.1",
+  "name": "@aweary/todo",
+  "version": "0.0.11",
   "description": "A todo-list manager straight from the CLI",
   "main": "index.js",
+  "preferGlobal": true,
   "scripts": {
-    "test": "mocha test"
+    "test": "mocha test",
+    "build": "./node_modules/babel/bin/babel.js ./src --out-dir build"
+  },
+  "bin": {
+    "todo": "./build/index.js"
   },
   "keywords": [
     "todo",
     "todo-list"
   ],
   "author": "Brandon Dail <Kierkegaurd@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "babel": "^5.8.9",
+    "chalk": "^1.1.0",
+    "cli-table": "^0.3.1",
+    "minimist": "^1.1.2"
+  }
 }
