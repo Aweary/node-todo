@@ -15,7 +15,6 @@ exports["default"] = function (args, tasks) {
 
   var flags = Object.keys(args);
   var details = args._;
-  console.log(flags);
 };
 
 module.exports = exports["default"];

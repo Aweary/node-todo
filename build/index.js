@@ -27,9 +27,8 @@ var _fs = require('fs');
 
 var _fs2 = _interopRequireDefault(_fs);
 
-var local = process.env.TODO_DB || './db/todo.json';
+var source = process.env.TODO_DB || '.todo.json';
 var args = (0, _minimist2['default'])(process.argv.slice(2));
-var source = _path2['default'].resolve(local);
 
 var tasks = (0, _libLoadJs2['default'])(source);
 var result = (0, _libParseJs2['default'])(args, tasks);

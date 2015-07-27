@@ -7,9 +7,8 @@ import minimist from 'minimist'
 import path from 'path'
 import fs from 'fs'
 
-const local  = process.env.TODO_DB || './db/todo.json'
+const source  = process.env.TODO_DB || '.todo.json'
 const args   = minimist(process.argv.slice(2))
-const source = path.resolve(local)
 
 const tasks  = load(source)
 const result = parse(args, tasks)
