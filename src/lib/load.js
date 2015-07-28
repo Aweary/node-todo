@@ -1,23 +1,26 @@
 import fs from 'fs'
 import path from 'path'
 
-export default function(source) {
+export default function load(source) {
 
-  let data = []
-  let exists = true
+  let result = {}
 
-  const windows = process.platform == 'win32'
+  const windows = process.platform === 'win32'
   const home = windows ? process.env.USERPROFILE
                        : process.env.HOME
 
-  const target = path.join(home, source)
+  let target = result.path = path.join(home, source)
 
-  try { fs.lstatSync(target) }
-  catch (err) { exists = false }
+  try {
+    const data = fs.readFileSync(target)
+    const list = JSON.parse(data)
+    result.list = list
+  }
+  catch (err) {
+    console.log('todo.json database file unreadable or not found')
+    result.list = {}
+  }
 
-  if (!exists) data = fs.readFileSync(target)
-
-  const result = !exists ? JSON.parse(data) : data
   return result
 
 }

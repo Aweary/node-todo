@@ -5,6 +5,10 @@
 * @return {Object}       todo instance
 */
 
-export default function(args, source) {
-  console.log(args, source)
+export default {function(args, source) {
+
+
+
+
+}
 }

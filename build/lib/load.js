@@ -3,6 +3,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
+exports['default'] = load;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -14,26 +15,26 @@ var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
-exports['default'] = function (source) {
+function load(source) {
 
-  var data = [];
   var exists = true;
+  var result = {};
 
   var windows = process.platform == 'win32';
   var home = windows ? process.env.USERPROFILE : process.env.HOME;
 
-  var target = _path2['default'].join(home, source);
+  var target = result.path = _path2['default'].join(home, source);
 
   try {
-    _fs2['default'].lstatSync(target);
+    var data = _fs2['default'].readFileSync(target);
+    var list = JSON.parse(data);
+    result.list = list;
   } catch (err) {
-    exists = false;
+    console.log('todo.json database file unreadable or not found');
+    result.list = [];
   }
 
-  if (!exists) data = _fs2['default'].readFileSync(target);
-
-  var result = !exists ? JSON.parse(data) : data;
   return result;
-};
+}
 
 module.exports = exports['default'];

@@ -1,3 +1,18 @@
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+exports['default'] = parse;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _taskJs = require('./task.js');
+
+var _taskJs2 = _interopRequireDefault(_taskJs);
+
+var _flagsJs = require('./flags.js');
+
 /**
 * parse a todo instance from the arguments
 * @param  {Object} args  minimist arguments
@@ -5,16 +20,13 @@
 * @return {Object}       todo instance
 */
 
-"use strict";
+var _flagsJs2 = _interopRequireDefault(_flagsJs);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+function parse(args, tasks) {
+  var content = args._;
+  tasks.current = content[0];
+  console.log(tasks.current);
+  tasks.push(content);
+}
 
-exports["default"] = function (args, tasks) {
-
-  var flags = Object.keys(args);
-  var details = args._;
-};
-
-module.exports = exports["default"];
+module.exports = exports['default'];

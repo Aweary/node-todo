@@ -1,3 +1,6 @@
+import Task from './task.js'
+import flags from './flags.js'
+
 /**
 * parse a todo instance from the arguments
 * @param  {Object} args  minimist arguments
@@ -5,9 +8,10 @@
 * @return {Object}       todo instance
 */
 
-export default function(args, tasks) {
-
-  let flags = Object.keys(args)
-  let details = args._
+export default function parse(args, tasks) {
+  let content = args._
+  tasks.current = content[0]
+  console.log(tasks.current)
+  tasks.push(content)
 
 }

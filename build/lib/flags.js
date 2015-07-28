@@ -10,9 +10,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-exports["default"] = function (args, source) {
-  console.log(args, source);
+exports["default"] = { "function": function _function(args, source) {}
 };
-
 module.exports = exports["default"];
