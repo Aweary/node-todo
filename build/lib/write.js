@@ -13,8 +13,16 @@ var _fs2 = _interopRequireDefault(_fs);
 
 var _utilJs = require('./util.js');
 
+/**
+* Save the updated task list back to the
+* database file.
+* @param  {[type]} tasks [description]
+* @return {[type]}       [description]
+*/
+
 function write(tasks) {
 
+  console.log(tasks);
   var source = tasks.path;
   var data = tasks.list;
   var task = tasks.current;
@@ -23,7 +31,6 @@ function write(tasks) {
   var json = JSON.stringify(data);
 
   stream.end(json);
-  (0, _utilJs.log)(JSON.stringify(tasks));
 }
 
 module.exports = exports['default'];

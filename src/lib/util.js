@@ -1,5 +1,6 @@
 import chalk from 'chalk'
 import moment from 'moment'
+import Table from 'cli-table'
 
 /**
 * Format console.log calls for readability and structure
@@ -7,10 +8,40 @@ import moment from 'moment'
 */
 
 function log(data) {
+
   let time =  moment().format('MM/DD hh:mm:ss:SS')
   let prefix = chalk.cyan(`[ ${time} ] - `)
   let content = chalk.red(data)
-  console.log(prefix + content)
+  console.log(content)
+
 }
 
-export { log }
+/**
+ * A collection of utility functions for formatting
+ * logged output.
+ * @type {Object}
+ */
+
+const format = {
+
+  task: function(group, source) {
+
+    return source.map(item => {
+      return `@${group} - ${item.task}`
+    }).join('\n')
+  }
+}
+
+/**
+ * A collection of error templates
+ * @type {Object}
+ */
+
+const err = {
+
+  group: function(group) {
+    return `No tasks found in group ${group}`
+  }
+}
+
+export { log, format, err }
