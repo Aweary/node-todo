@@ -16,6 +16,7 @@ function log(data) {
   let prefix = chalk.cyan(`[ ${time} ] - `)
   let content = chalk.red(data)
   debug('Logging out content %o', data)
+  console.log(content)
 
 }
 
@@ -42,8 +43,14 @@ const format = {
 
 const err = {
 
-  group: function(group) {
-    return `No tasks found in group ${group}`
+  group: function(group, exists) {
+    let output = group == '_'
+        ? 'general group'
+        : group
+    let message = exists
+        ? `No tasks found in ${output}`
+        : `Group "${output}" doesn't exist`
+    return message
   }
 }
 

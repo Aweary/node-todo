@@ -45,12 +45,14 @@ function parse(args, source) {
     var list = args.list || args.l;
     var _group = list === true ? '_' : list;
     var target = tasks[_group];
-    var output = target ? _utilJs.format.task(_group, target) : _utilJs.err.group(_group);
-    (0, _utilJs.log)(output);
+    if (target !== undefined) {
+      target.length ? (0, _utilJs.log)(_utilJs.format.task(_group, target)) : (0, _utilJs.log)(_utilJs.err.group(_group, true));
+    } else (0, _utilJs.log)(_utilJs.err.group(_group));
     return source;
   }
   /* Clear all tasks */
   if (clearGroup) {
+    debug('Clearing group %o', clearGroup);
     clearGroup === true ? source.list = {} : source.list[clearGroup] = [];
     return source;
   }
@@ -73,7 +75,7 @@ function parse(args, source) {
 
   tasks[group].push({ task: task, due: due });
 
-  (0, _utilJs.log)((newGroup ? 'Created group' : 'Added') + ' ' + task);
+  (0, _utilJs.log)('Added task "' + task + '" to ' + (newGroup ? 'new ' : '') + 'group "' + group + '"');
   return source;
 }
 

@@ -29,13 +29,17 @@ export default function parse(args, source) {
     let list   = args.list || args.l
     let group  = list === true ? '_' : list
     let target = tasks[group]
-    let output = target ? format.task(group, target)
-                        : err.group(group)
-    log(output)
+    if (target !== undefined) {
+      target.length
+          ? log(format.task(group, target))
+          : log(err.group(group, true))
+    }
+    else log(err.group(group))
     return source
   }
   /* Clear all tasks */
   if (clearGroup) {
+    debug('Clearing group %o', clearGroup)
     clearGroup === true
         ? source.list = {}
         : source.list[clearGroup] = []
@@ -61,6 +65,6 @@ export default function parse(args, source) {
 
   tasks[group].push({task, due})
 
-  log(`${newGroup ? 'Created group' : 'Added'} ${task}`)
+  log(`Added task "${task}" to ${newGroup ? 'new ' : ''}group "${group}"`)
   return source
 }

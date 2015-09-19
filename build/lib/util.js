@@ -35,6 +35,7 @@ function log(data) {
   var prefix = _chalk2['default'].cyan('[ ' + time + ' ] - ');
   var content = _chalk2['default'].red(data);
   debug('Logging out content %o', data);
+  console.log(content);
 }
 
 /**
@@ -60,8 +61,10 @@ var format = {
 
 var err = {
 
-  group: function group(_group) {
-    return 'No tasks found in group ' + _group;
+  group: function group(_group, exists) {
+    var output = _group == '_' ? 'general group' : _group;
+    var message = exists ? 'No tasks found in ' + output : 'Group "' + output + '" doesn\'t exist';
+    return message;
   }
 };
 
