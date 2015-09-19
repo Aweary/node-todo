@@ -11,7 +11,13 @@ var _fs = require('fs');
 
 var _fs2 = _interopRequireDefault(_fs);
 
+var _debug = require('debug');
+
+var _debug2 = _interopRequireDefault(_debug);
+
 var _utilJs = require('./util.js');
+
+var debug = (0, _debug2['default'])('todo:write');
 
 /**
 * Save the updated task list back to the
@@ -22,7 +28,7 @@ var _utilJs = require('./util.js');
 
 function write(tasks) {
 
-  console.log(tasks);
+  debug('Writing tasks %o', tasks);
   var source = tasks.path;
   var data = tasks.list;
   var task = tasks.current;

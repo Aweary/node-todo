@@ -1,5 +1,8 @@
 import fs from 'fs'
+import bugger from 'debug'
 import { log } from './util.js'
+
+const debug = bugger('todo:write')
 
 /**
 * Save the updated task list back to the
@@ -10,7 +13,7 @@ import { log } from './util.js'
 
 export default function write(tasks) {
 
-  console.log(tasks)
+  debug('Writing tasks %o', tasks)
   let source = tasks.path
   let data   = tasks.list
   let task   = tasks.current

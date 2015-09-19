@@ -1,6 +1,9 @@
 import chalk from 'chalk'
 import moment from 'moment'
 import Table from 'cli-table'
+import bugger from 'debug'
+
+const debug = bugger('todo:util')
 
 /**
 * Format console.log calls for readability and structure
@@ -12,7 +15,7 @@ function log(data) {
   let time =  moment().format('MM/DD hh:mm:ss:SS')
   let prefix = chalk.cyan(`[ ${time} ] - `)
   let content = chalk.red(data)
-  console.log(content)
+  debug('Logging out content %o', data)
 
 }
 

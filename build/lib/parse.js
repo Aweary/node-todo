@@ -7,11 +7,17 @@ exports['default'] = parse;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
+var _debug = require('debug');
+
+var _debug2 = _interopRequireDefault(_debug);
+
 var _flagsJs = require('./flags.js');
 
 var _flagsJs2 = _interopRequireDefault(_flagsJs);
 
 var _utilJs = require('./util.js');
+
+var debug = (0, _debug2['default'])('todo:parse');
 
 /**
 *
@@ -31,6 +37,8 @@ function parse(args, source) {
 
   var tasks = source.list;
   var newGroup = false;
+  var clearGroup = args.c || args.clear;
+  debug('The clearGroup is %o', clearGroup);
 
   /* Output all registered tasks by group */
   if (args.list || args.l) {
@@ -42,9 +50,8 @@ function parse(args, source) {
     return source;
   }
   /* Clear all tasks */
-  if (args.c || args.clear) {
-    (0, _utilJs.log)('Cleared all tasks');
-    source.list = {};
+  if (clearGroup) {
+    clearGroup === true ? source.list = {} : source.list[clearGroup] = [];
     return source;
   }
 
@@ -53,16 +60,20 @@ function parse(args, source) {
   var group = args.g || args.group || '_';
   var due = args.d || args.due || null;
   var task = args._.join(' ');
-  console.log('tasks...', tasks);
 
-  if (!tasks[group]) {
-    console.log('This is a new task');
+  if (group === true) group = '_';
+
+  if (!tasks[group] || clearGroup) {
+    debug('Re/creating group %o', group);
     newGroup = true;
     tasks[group] = [];
   }
+
+  debug('Adding task %o to group %o', task, group);
+
   tasks[group].push({ task: task, due: due });
 
-  (0, _utilJs.log)((newGroup ? 'Create group' : 'Added') + ' ' + task);
+  (0, _utilJs.log)((newGroup ? 'Created group' : 'Added') + ' ' + task);
   return source;
 }
 

@@ -1,5 +1,7 @@
+import bugger from 'debug'
 import flags   from './flags.js'
 import { log, format, err } from './util.js'
+const debug = bugger('todo:parse')
 
 /**
 *
@@ -19,6 +21,8 @@ export default function parse(args, source) {
 
   let tasks = source.list
   let newGroup = false
+  let clearGroup = args.c || args.clear
+  debug('The clearGroup is %o', clearGroup)
 
   /* Output all registered tasks by group */
   if (args.list || args.l) {
@@ -31,9 +35,10 @@ export default function parse(args, source) {
     return source
   }
   /* Clear all tasks */
-  if (args.c || args.clear) {
-    log('Cleared all tasks')
-    source.list = {}
+  if (clearGroup) {
+    clearGroup === true
+        ? source.list = {}
+        : source.list[clearGroup] = []
     return source
   }
 
@@ -42,15 +47,20 @@ export default function parse(args, source) {
   let group = args.g || args.group || '_'
   let due   = args.d || args.due || null
   let task  = args._.join(' ')
-  console.log('tasks...', tasks[group]);
 
-  if (!tasks[group]) {
-    console.log('This is a new task')
+  if (group === true) group = '_'
+
+  if (!tasks[group] || clearGroup) {
+    debug('Re/creating group %o', group)
     newGroup = true
     tasks[group] = []
   }
+
+  debug('Adding task %o to group %o', task, group)
+
+
   tasks[group].push({task, due})
 
-  log(`${newGroup ? 'Create group' : 'Added'} ${task}`)
+  log(`${newGroup ? 'Created group' : 'Added'} ${task}`)
   return source
 }
